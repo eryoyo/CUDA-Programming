@@ -7,6 +7,7 @@ __global__ void hello_from_gpu()
 
 int main(void)
 {
+    // grid size = 2, block size = 4，总共8个线程
     hello_from_gpu<<<2, 4>>>();
     cudaDeviceSynchronize();
     return 0;
