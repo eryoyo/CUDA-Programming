@@ -9,6 +9,11 @@ __global__ void hello_from_gpu()
 
 int main(void)
 {
+    // 身份标识：
+    // gridDim.x = 2, blockDim.x = 4
+    // blockIdx取值0-1
+    // threadIdx取值0-3
+    // 后面会推广到多维
     hello_from_gpu<<<2, 4>>>();
     cudaDeviceSynchronize();
     return 0;
