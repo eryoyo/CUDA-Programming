@@ -24,6 +24,12 @@ int main(void)
     }
 
     double *d_x, *d_y, *d_z;
+    // 所有的CUDA运行时api调用都是用了宏函数检查调用情况，下面是返回值
+    // CUDA Error:
+    // File:       check1api.cu
+    // Line:       36
+    // Error code: 1
+    // Error text: invalid argument
     CHECK(cudaMalloc((void **)&d_x, M));
     CHECK(cudaMalloc((void **)&d_y, M));
     CHECK(cudaMalloc((void **)&d_z, M));

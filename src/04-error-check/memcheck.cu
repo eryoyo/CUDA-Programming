@@ -1,6 +1,13 @@
 #include <math.h>
 #include <stdio.h>
 
+// CUDA 提供了名为 CUDA-MEMCHECK 的工具集，具体包括 memcheck、 racecheck、
+// initcheck、synccheck 共4个工具。它们可由可执行文件cuda-memcheck 调用
+// cuda-memcheck --tool memcheck [options] app_name [options]，此时--tool memcheck可省略
+// cuda-memcheck --tool racecheck [options] app_name [options]
+// cuda-memcheck --tool initcheck [options] app_name [options]
+// cuda-memcheck --tool synccheck [options] app_name [options]
+// 例如cuda-memcheck ./a.out
 const double EPSILON = 1.0e-15;
 const double a = 1.23;
 const double b = 2.34;

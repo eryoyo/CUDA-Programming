@@ -30,10 +30,18 @@ int main(void)
     CHECK(cudaMemcpy(d_x, h_x, M, cudaMemcpyHostToDevice));
     CHECK(cudaMemcpy(d_y, h_y, M, cudaMemcpyHostToDevice));
 
+    // 线程块最大为1024，核函数不能被正确的调用，运行输出：
+    // CUDA Error:
+    // File:       check2kernel.cu
+    // Line:       38
+    // Error code: 9
+    // Error text: invalid configuration argument
     const int block_size = 1280;
     const int grid_size = (N + block_size - 1) / block_size;
     add<<<grid_size, block_size>>>(d_x, d_y, d_z, N);
+    // 核函数没有返回值，用下面两个函数来检查核函数调用过程中的错误
     CHECK(cudaGetLastError());
+    // 需要注意下面的同步函数比较耗时
     CHECK(cudaDeviceSynchronize());
 
     CHECK(cudaMemcpy(h_z, d_z, M, cudaMemcpyDeviceToHost));
