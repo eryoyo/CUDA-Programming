@@ -26,6 +26,7 @@ int main(void)
     cudaMalloc((void **)&d_x, M);
     cudaMalloc((void **)&d_y, M);
     cudaMalloc((void **)&d_z, M);
+    // 这个位置方向写错了，程序输出Has errors
     cudaMemcpy(d_x, h_x, M, cudaMemcpyDeviceToHost);
     cudaMemcpy(d_y, h_y, M, cudaMemcpyDeviceToHost);
 

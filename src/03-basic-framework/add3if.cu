@@ -48,6 +48,7 @@ int main(void)
 void __global__ add(const double *x, const double *y, double *z, const int N)
 {
     const int n = blockDim.x * blockIdx.x + threadIdx.x;
+    // 总的线程数大于数组的数量，需要if来阻止非法访问
     if (n < N)
     {
         z[n] = x[n] + y[n];

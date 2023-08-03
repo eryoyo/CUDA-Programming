@@ -12,6 +12,7 @@ void check(const double *z, const int N);
 int main(void)
 {
     const int N = 100000000;
+    // 分配主机内存
     const int M = sizeof(double) * N;
     double *x = (double*) malloc(M);
     double *y = (double*) malloc(M);
@@ -45,6 +46,7 @@ void check(const double *z, const int N)
     bool has_error = false;
     for (int n = 0; n < N; ++n)
     {
+        // 比较两个浮点数是否相等，不是直接使用关系符==，而是判断两数之差的绝对值是否小于一个很小的数
         if (fabs(z[n] - c) > EPSILON)
         {
             has_error = true;
