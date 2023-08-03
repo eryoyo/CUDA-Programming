@@ -2,6 +2,11 @@
 #include <math.h>
 #include <stdio.h>
 
+// 假设将内存的拷贝也加入到计时项里面，可能最后花费的时间比单纯使用CPU计算长
+// cuda工具箱里面有一个称为nvprof的可执行工具
+// nvprof ./a.out
+// 可以得到各项调用的耗时及比例
+// GPU 计算核心和设备内存之间数据传输的峰值理论带宽要远高于GPU 和CPU 之间数据传输的带宽
 #ifdef USE_DP
     typedef double real;
     const real EPSILON = 1.0e-15;

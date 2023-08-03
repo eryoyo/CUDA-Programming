@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
+// 当宏USE_DP 有定义时，程序中的real 就代表double，否则代表float
 #ifdef USE_DP
     typedef double real;
     const real EPSILON = 1.0e-15;

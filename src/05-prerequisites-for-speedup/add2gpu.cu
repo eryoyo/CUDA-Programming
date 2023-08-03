@@ -45,10 +45,14 @@ int main(void)
     float t2_sum = 0;
     for (int repeat = 0; repeat <= NUM_REPEATS; ++repeat)
     {
+        // cuda事件类型
         cudaEvent_t start, stop;
         CHECK(cudaEventCreate(&start));
         CHECK(cudaEventCreate(&stop));
         CHECK(cudaEventRecord(start));
+        // 对于处于TCC驱动模式的GPU可以省略，但是对于WDDM驱动模式下的GPU必须保留
+        // 因为WDDM模式下一个CUDA stream中的操作，例如此处的cudaEventRecord函数不是直接交给GPU执行，而是先提交到一个软件队列
+        // 需要添加一条对该流的 cudaEventQuery 操作（或者cudaEventSynchronize）刷新队列，才能促使前面的操作在GPU执行
         cudaEventQuery(start);
 
         add<<<grid_size, block_size>>>(d_x, d_y, d_z, N);
@@ -56,6 +60,7 @@ int main(void)
         CHECK(cudaEventRecord(stop));
         CHECK(cudaEventSynchronize(stop));
         float elapsed_time;
+        // 计算两个事件之间的时间差
         CHECK(cudaEventElapsedTime(&elapsed_time, start, stop));
         printf("Time = %g ms.\n", elapsed_time);
 

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
+// 增加计算的复杂度，提升GPU的加速效果
 #ifdef USE_DP
     typedef double real;
 #else
